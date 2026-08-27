@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Lato', sans-serif;
+
+  --color-forest: #1A3828;
+  --color-forest-dark: #132A1D;
+  --color-forest-mid: #5A784B;
+  --color-gold: #C5A059;
+  --color-cream: #F8F7F4;
+  --color-sand: #E8DFD8;
+  --color-muted: #5A5F55;
+  --color-sage: #B7C0AF;
+  --color-olive: #899080;
+  --color-whatsapp: #25D366;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  color: var(--color-forest);
+  background: var(--color-cream);
+}
+
+.font-display {
+  font-family: 'Lato', sans-serif;
+  font-style: italic;
+  font-weight: 300;
+}
