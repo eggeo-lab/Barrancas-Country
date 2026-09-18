@@ -1,4 +1,4 @@
-import logoFooter from '../assets/images/logo-footer.webp';
+import logo from '../assets/images/logo-icon.png';
 
 const LINKS = [
   { href: '#inicio', label: 'Inicio' },
@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 pb-10 border-b border-cream/10">
           <a href="#inicio" className="flex items-center gap-3">
-            <img src={logoFooter} alt="Barrancas del Río" className="w-11 h-11 rounded-full object-cover" />
+            <img src={logo} alt="Barrancas del Río" className="h-12 w-auto object-contain" />
             <span className="font-display text-cream text-lg">Barrancas del Río</span>
           </a>
 
@@ -32,10 +32,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="text-cream/40 text-xs mt-6">
-          © {new Date().getFullYear()} Barrancas del Río Country Club. Todos los derechos
-          reservados.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-6">
+          <p className="text-cream/40 text-xs">
+            © {new Date().getFullYear()} Barrancas del Río Country Club. Todos los derechos
+            reservados.
+          </p>
+          <a
+            href="https://www.eggeo.com.ar"
+            target="_blank"
+            rel="noreferrer"
+            className="text-cream/40 text-xs hover:text-gold transition-colors"
+          >
+            Desarrollado por EGGEO
+          </a>
+        </div>
       </div>
     </footer>
   );

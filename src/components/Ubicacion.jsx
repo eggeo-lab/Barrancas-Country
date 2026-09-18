@@ -1,14 +1,15 @@
+import viewUbicacion from '../assets/images/view-ubicacion.png';
+
 // Coordenadas reales del loteo.
 const LAT = -32.17310166452366;
 const LNG = -64.22572707105174;
-const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${LAT},${LNG}&z=15&output=embed`;
 const MAPS_LINK = `https://www.google.com/maps?q=${LAT},${LNG}`;
 
 export default function Ubicacion() {
   return (
     <section id="ubicacion" className="bg-cream pt-12 sm:pt-14 pb-24 sm:pb-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 items-center">
           <div>
             <p className="text-forest-mid text-xs tracking-[0.3em] uppercase mb-4">Ubicación</p>
             <h2 className="font-display text-forest text-[clamp(30px,4vw,46px)] mb-5 leading-[1.15]">
@@ -28,13 +29,12 @@ export default function Ubicacion() {
             </a>
           </div>
 
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-sm border border-forest/10">
-            <iframe
-              title="Ubicación de Barrancas del Río"
-              src={MAPS_EMBED_URL}
-              className="w-full h-full grayscale-[15%]"
+          <div className="aspect-video w-full overflow-hidden rounded-sm border border-forest/10 bg-sand">
+            <img
+              src={viewUbicacion}
+              alt="Mapa de ubicación de Barrancas del Río, a 5 minutos de Almafuerte y Río Tercero, junto al Lago Piedras Moras y a 1 hora de Córdoba"
+              className="w-full h-full object-contain"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>

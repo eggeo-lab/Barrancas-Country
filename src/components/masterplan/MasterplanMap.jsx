@@ -213,7 +213,37 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
         </div>
       )}
 
-      
+      {/* Controles de zoom — solo mobile, donde no hay pinch-to-zoom nativo sobre el SVG.
+          Reutilizan zoom()/resetView(), que ya manejan el paneo por drag/touch. */}
+      <div className="sm:hidden absolute bottom-3 right-3 z-20 flex flex-col gap-2">
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => zoom(1 / 1.4)}
+          aria-label="Acercar plano"
+          className="w-10 h-10 rounded-full bg-forest-dark/95 border border-gold/40 text-cream text-lg leading-none flex items-center justify-center shadow-lg active:bg-forest"
+        >
+          +
+        </button>
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={() => zoom(1.4)}
+          aria-label="Alejar plano"
+          className="w-10 h-10 rounded-full bg-forest-dark/95 border border-gold/40 text-cream text-lg leading-none flex items-center justify-center shadow-lg active:bg-forest"
+        >
+          −
+        </button>
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={resetView}
+          aria-label="Restablecer zoom"
+          className="w-10 h-10 rounded-full bg-forest-dark/95 border border-gold/40 text-cream text-[10px] tracking-wide flex items-center justify-center shadow-lg active:bg-forest"
+        >
+          100%
+        </button>
+      </div>
     </div>
   );
 }

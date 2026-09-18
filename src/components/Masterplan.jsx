@@ -33,27 +33,11 @@ export default function Masterplan() {
   return (
     <section id="masterplan" className="bg-forest-dark py-24 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-          <div>
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Masterplan</p>
-            <h2 className="font-display text-cream text-[clamp(28px,3.6vw,44px)] max-w-lg">
-              Cada lote, pensado dentro del paisaje
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#contacto"
-              className="inline-flex items-center gap-2 bg-gold text-forest-dark text-sm font-medium px-5 py-3 rounded-full hover:bg-cream transition-colors"
-            >
-              Consultar Lotes Disponibles
-            </a>
-            <a
-              href="#contacto"
-              className="inline-flex items-center gap-2 border border-cream/40 text-cream text-sm px-5 py-3 rounded-full hover:border-gold hover:text-gold transition-colors"
-            >
-              Descargar PDF
-            </a>
-          </div>
+        <div className="mb-10">
+          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Masterplan</p>
+          <h2 className="font-display text-cream text-[clamp(28px,3.6vw,44px)] max-w-lg">
+            Cada lote, pensado dentro del paisaje
+          </h2>
         </div>
 
         {/* Filter chips + stats */}

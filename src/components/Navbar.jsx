@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logoNav from '../assets/images/logo-nav.webp';
+import logo from '../assets/images/logo-icon.png';
 
 const LINKS = [
   { href: '#proyecto', label: 'El Proyecto' },
@@ -35,9 +35,9 @@ export default function Navbar() {
         scrolled || open ? 'bg-forest/95 backdrop-blur-sm shadow-lg shadow-forest-dark/20' : 'bg-transparent'
       }`}
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-18 py-3">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-20 sm:h-24 py-3">
         <a href="#inicio" className="flex items-center gap-3 shrink-0" onClick={handleLinkClick}>
-          <img src={logoNav} alt="Barrancas del Río" className="w-11 h-11 rounded-full object-cover" />
+          <img src={logo} alt="Barrancas del Río" className="h-12 sm:h-16 w-auto object-contain" />
           <span className="font-display text-cream text-lg sm:text-xl tracking-wide">Barrancas del Río</span>
         </a>
 
