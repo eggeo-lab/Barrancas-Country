@@ -3,7 +3,7 @@ import heroVideo from '../assets/images/hero-video.mp4';
 const STATS = [
   { value: '1000 m²', label: 'Lotes desde' },
   { value: 'Listo', label: 'para construir' },
-  { value: 'Golf 18h', label: 'campo integrado' },
+  { value: 'Golf 9h', label: 'campo integrado' },
   { value: 'Financiación', label: 'Propia' },
 ];
 
