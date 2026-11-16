@@ -31,7 +31,6 @@ export const VENDIDOS = [
 ];
 
 export const CONSTRUIDOS = [
-  '1-100',
   '3-105',
 ];
 
