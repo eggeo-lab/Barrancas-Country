@@ -1,0 +1,36 @@
+# Barrancas del Río Country Club — https://barrancasdelrio.com.ar
+# Sitio público: se permite el rastreo completo a buscadores y motores de IA.
+
+User-agent: *
+Allow: /
+
+# Buscadores
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Motores de respuesta / IA
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://barrancasdelrio.com.ar/sitemap.xml
