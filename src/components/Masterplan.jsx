@@ -77,7 +77,7 @@ export default function Masterplan() {
                 <p className="text-cream/50 text-xs tracking-[0.2em] uppercase mb-2">
                   Lote seleccionado
                 </p>
-                <h4 className="font-display text-cream text-2xl mb-1">{selectedLot.id}</h4>
+                <h3 className="font-display text-cream text-2xl mb-1">{selectedLot.id}</h3>
                 <p className="text-sage text-sm mb-4">
                   Manzana {selectedLot.manzana} · Lote {selectedLot.num}
                 </p>

@@ -5,6 +5,7 @@ import Amenities from './components/Amenities';
 import Masterplan from './components/Masterplan';
 import Financiacion from './components/Financiacion';
 import Ubicacion from './components/Ubicacion';
+import PreguntasFrecuentes from './components/PreguntasFrecuentes';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 
@@ -19,6 +20,7 @@ export default function App() {
         <Masterplan />
         <Financiacion />
         <Ubicacion />
+        <PreguntasFrecuentes />
         <Contacto />
       </main>
       <Footer />

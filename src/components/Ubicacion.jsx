@@ -33,6 +33,8 @@ export default function Ubicacion() {
             <img
               src={viewUbicacion}
               alt="Mapa de ubicación de Barrancas del Río, a 5 minutos de Almafuerte y Río Tercero, junto al Lago Piedras Moras y a 1 hora de Córdoba"
+              width="1672"
+              height="941"
               className="w-full h-full object-contain"
               loading="lazy"
             />

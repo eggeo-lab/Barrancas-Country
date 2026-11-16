@@ -8,6 +8,9 @@ const ITEMS = [
   {
     n: '01',
     title: 'Golf & Driving Range',
+    alt: 'Cancha de golf y driving range de Barrancas del Río, integrada al entorno natural junto al río',
+    w: 1200,
+    h: 675,
     text: 'Un campo perfectamente integrado al entorno natural, pensado para todos los niveles de juego.',
     img: golfImg,
     dark: true,
@@ -15,6 +18,9 @@ const ITEMS = [
   {
     n: '02',
     title: 'Tenis',
+    alt: 'Canchas de tenis de Barrancas del Río Country Club',
+    w: 1200,
+    h: 675,
     text: 'Canchas profesionales de uso exclusivo para socios, disponibles todo el año.',
     img: tenisImg,
     dark: false,
@@ -22,6 +28,9 @@ const ITEMS = [
   {
     n: '03',
     title: 'Club House',
+    alt: 'Club House de Barrancas del Río Country Club',
+    w: 1200,
+    h: 675,
     text: 'Un espacio exclusivo para la vida social y los eventos.',
     img: clubhouseImg,
     dark: true,
@@ -29,6 +38,9 @@ const ITEMS = [
   {
     n: '04',
     title: 'Hotel & Spa',
+    alt: 'Hotel & Spa dentro del desarrollo Barrancas del Río',
+    w: 1024,
+    h: 684,
     text: 'Alojamiento y relax de categoría dentro del desarrollo, para vos y tus invitados.',
     img: hotelImg,
     dark: false,
@@ -36,6 +48,9 @@ const ITEMS = [
   {
     n: '05',
     title: 'Naturaleza & Río',
+    alt: 'Vista aérea del río, la cancha de golf y las calles de Barrancas del Río',
+    w: 1200,
+    h: 675,
     text: 'Acceso directo y senderos naturales sobre la vera del río.',
     img: rioImg,
     dark: true,
@@ -68,7 +83,9 @@ export default function Amenities() {
             >
               <img
                 src={item.img}
-                alt={item.title}
+                alt={item.alt}
+                width={item.w}
+                height={item.h}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />

@@ -37,7 +37,7 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-20 sm:h-24 py-3">
         <a href="#inicio" className="flex items-center gap-3 shrink-0" onClick={handleLinkClick}>
-          <img src={logo} alt="Barrancas del Río" className="h-12 sm:h-16 w-auto object-contain" />
+          <img src={logo} alt="Barrancas del Río" width="797" height="529" className="h-12 sm:h-16 w-auto object-contain" />
           <span className="font-display text-cream text-lg sm:text-xl tracking-wide">Barrancas del Río</span>
         </a>
 

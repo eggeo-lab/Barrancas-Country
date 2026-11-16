@@ -6,7 +6,7 @@ const POINTS = [
 
 export default function Financiacion() {
   return (
-    <section className="bg-cream pt-24 sm:pt-28 pb-12 sm:pb-14">
+    <section id="financiacion" className="bg-cream pt-24 sm:pt-28 pb-12 sm:pb-14">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
           <div>
