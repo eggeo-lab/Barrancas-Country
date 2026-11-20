@@ -5,12 +5,15 @@ import { STATUS_META, fmtArea } from './statusUtils';
 
 const CANVAS = { x: 0, y: 0, w: 1600, h: 950 };
 const MOVE_THRESHOLD = 4; // px de tolerancia antes de considerar que fue un arrastre, no un tap
+const MIN_W = 400; // ancho mínimo del viewBox (zoom máximo)
 
 export default function MasterplanMap({ statuses, activeFilter, selected, onSelect }) {
   const [vb, setVb] = useState({ ...CANVAS });
   const [tooltip, setTooltip] = useState(null);
   const viewportRef = useRef(null);
   const dragState = useRef(null);
+  const pointers = useRef(new Map()); // dedos/punteros activos: pointerId -> {x, y}
+  const pinchState = useRef(null);
 
   const clampVB = useCallback((box) => {
     const w = Math.min(box.w, CANVAS.w);
@@ -27,7 +30,7 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
 
   const zoom = useCallback((factor) => {
     setVb((prev) => {
-      const nw = Math.max(400, Math.min(1600, prev.w * factor));
+      const nw = Math.max(MIN_W, Math.min(CANVAS.w, prev.w * factor));
       const nh = nw * (950 / 1600);
       const px = prev.x + prev.w / 2;
       const py = prev.y + prev.h / 2;
@@ -47,6 +50,29 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
   // arrastrar el mapa, el click posterior puede quedar retargeteado al
   // contenedor y perderse el lote específico que se tocó.
   const onPointerDown = (e) => {
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    e.currentTarget.setPointerCapture(e.pointerId);
+
+    // Segundo dedo: arranca el pinch-to-zoom y se cancela el arrastre/tap en curso.
+    if (pointers.current.size === 2) {
+      const [a, b] = [...pointers.current.values()];
+      const rect = viewportRef.current.getBoundingClientRect();
+      const midX = (a.x + b.x) / 2 - rect.left;
+      const midY = (a.y + b.y) / 2 - rect.top;
+      const start = vb;
+      pinchState.current = {
+        dist: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        vb: { ...start },
+        // Punto del plano que queda bajo el centro de los dos dedos
+        px: start.x + (midX / rect.width) * start.w,
+        py: start.y + (midY / rect.height) * start.h,
+      };
+      dragState.current = null;
+      setTooltip(null);
+      return;
+    }
+    if (pointers.current.size > 2) return;
+
     const lotEl = e.target.closest?.('[data-lot-id]');
     dragState.current = {
       startX: e.clientX,
@@ -55,11 +81,34 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
       moved: false,
       lotId: lotEl ? lotEl.getAttribute('data-lot-id') : null,
     };
-    e.currentTarget.setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e) => {
     if (!viewportRef.current) return;
+
+    if (pointers.current.has(e.pointerId)) {
+      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    }
+
+    if (pinchState.current && pointers.current.size >= 2) {
+      const [a, b] = [...pointers.current.values()];
+      const rect = viewportRef.current.getBoundingClientRect();
+      const p = pinchState.current;
+      const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+      const nw = Math.max(MIN_W, Math.min(CANVAS.w, p.vb.w * (p.dist / dist)));
+      const nh = nw * (CANVAS.h / CANVAS.w);
+      const midX = (a.x + b.x) / 2 - rect.left;
+      const midY = (a.y + b.y) / 2 - rect.top;
+      setVb(
+        clampVB({
+          x: p.px - (midX / rect.width) * nw,
+          y: p.py - (midY / rect.height) * nh,
+          w: nw,
+          h: nh,
+        })
+      );
+      return;
+    }
 
     if (dragState.current) {
       const dx = e.clientX - dragState.current.startX;
@@ -91,10 +140,30 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
     }
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e) => {
+    pointers.current.delete(e.pointerId);
+
+    if (pinchState.current) {
+      if (pointers.current.size < 2) {
+        pinchState.current = null;
+        // Si queda un dedo apoyado, sigue arrastrando desde la vista actual (sin saltos y sin seleccionar).
+        const rest = [...pointers.current.values()][0];
+        dragState.current = rest
+          ? { startX: rest.x, startY: rest.y, vb: { ...vb }, moved: true, lotId: null }
+          : null;
+      }
+      return;
+    }
+
     if (dragState.current && !dragState.current.moved) {
       onSelect(dragState.current.lotId);
     }
+    dragState.current = null;
+  };
+
+  const onPointerCancel = (e) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2) pinchState.current = null;
     dragState.current = null;
   };
 
@@ -115,6 +184,7 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
       onPointerLeave={() => setTooltip(null)}
     >
       <svg viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`} className="w-full h-full">
@@ -213,7 +283,7 @@ export default function MasterplanMap({ statuses, activeFilter, selected, onSele
         </div>
       )}
 
-      {/* Controles de zoom — solo mobile, donde no hay pinch-to-zoom nativo sobre el SVG.
+      {/* Controles de zoom — solo mobile, como alternativa al pinch-to-zoom con dos dedos.
           Reutilizan zoom()/resetView(), que ya manejan el paneo por drag/touch. */}
       <div className="sm:hidden absolute bottom-3 right-3 z-20 flex flex-col gap-2">
         <button

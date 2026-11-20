@@ -31,9 +31,9 @@ npm run deploy    # build + publica dist/ en la rama gh-pages
   vive como constantes al inicio de cada archivo (`ITEMS`, `STATS`, `POINTS`, `LINKS`).
 - [src/components/masterplan/](src/components/masterplan/) — plano interactivo:
   - `MasterplanMap.jsx`: SVG con zoom/pan propio (manipula el `viewBox`), selección por
-    pointer events y tooltip. Botones de zoom solo en mobile (`sm:hidden`).
+    pointer events, pinch-to-zoom con dos dedos y tooltip. Botones de zoom solo en mobile (`sm:hidden`).
   - `statusUtils.js`: `STATUS_META` (etiqueta y color por estado) y `fmtArea`.
-- [src/data/masterplan.js](src/data/masterplan.js) — geometría generada: `LOTS` (54 lotes
+- [src/data/masterplan.js](src/data/masterplan.js) — geometría generada: `LOTS` (59 lotes
   con `id`, `manzana`, `num`, `area`, `d`, `cx`, `cy`), `ROAD_PATHS`, `PLAN_TRANSFORM`.
   Líneas enormes; no leerlo entero ni editarlo a mano salvo un valor puntual.
 - [src/data/lotStatuses.js](src/data/lotStatuses.js) — **estado comercial real** de los lotes.
